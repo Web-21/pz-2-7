@@ -1,0 +1,110 @@
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+body{
+    margin: 0;
+    height: 740px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: lightgray;
+}
+.game_container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+    height: 600px;
+    background-color: lightgray;
+    border: 2px solid lightgray;
+    border-radius: 10px;
+
+    border: transparent;
+}
+p {
+    color: dodgerblue;
+    font-size: 40px;
+    font-weight: bold;
+}
+.button{
+    padding: 10px 20px;
+    background: #42719B;
+    color: aliceblue;
+    font-size: medium;
+    font-weight: bold;
+    border-radius: 10px;
+    border: 3px solid aliceblue;
+    cursor: pointer;
+    transition: .2s;
+}
+.button:hover{
+    background: lightgray;
+    color: dodgerblue;
+    border: 3px solid dodgerblue;
+}
+
+.gameScene_container{
+    display: flex;
+    justify-content: space-around;
+    padding: 5px;
+    flex-wrap: wrap;
+    width: 300px;
+    border: 3px solid #E16B6B;
+    border-radius: 10px;
+    background: aliceblue;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.square{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    height: 50px;
+    width: 50px;
+    border: 2px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.square:hover{
+    background-color: rgb(179, 201, 232);
+}
+
+.counter{
+    font-size: 24px;
+    font-weight: 500;
+}
+
+#result{
+    width: 100%;
+    padding: 10px 0;
+    font-size: 32px;
+    position: absolute;
+    display: none;
+    top: 0;
+    left: 0;
+    align-items: center;
+    text-align: center;
+    transition: .5s;
+}
+
+.gameStats{
+    position: absolute;
+    padding: 10px 20px;
+    font-weight: 700;
+    text-align: center;
+    display: block;
+    left: 10%;
+    /* background-color: ; */
+    top: 40%;
+    border: 3px solid #E16B6B;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#statsText{
+    margin-top: 10px;
+    font-size: 10px;
+    color: black;
+}
