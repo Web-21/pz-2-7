@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.root {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.startpage {
+  font-size: 48px;
+  text-align: center;
+  color: #E16B6B;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.opengame {
+  background-color: #5B9BD5;
+  font-size: 40px;
+  text-decoration: none;
+  color: white;
+  padding: 10px 30px;
+  border-radius: 10px;
+  border: 1px solid #42719B;
+}
