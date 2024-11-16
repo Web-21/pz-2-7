@@ -1,35 +1,48 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Моя гра</title>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Number Game</title>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="screen1">
-        <h1>Моя перша гра</h1>
-        <button id="startGame">Почати гру</button>
-    </div>
+<div id="screen1">
+  <h1>Моя перша гра</h1>
+  <button id="startBtn">Почати гру</button>
+</div>
 
-    <div id="screen2" style="display: none;">
-        <h2>Залишилось: <span id="timer">30</span> секунд</h2>
-        <button id="restartGame">Почати з початку</button>
-        <div id="gameField" class="grid"></div>
-    </div>
+<div id="screen2">
+  <div id="timer">Час: 0</div>
+  <div id="grid"></div>
+  <button id="restartBtn">Почати знову</button>
+</div>
 
-    <div id="screen3" style="display: none;">
-        <table>
-            <thead>
-                <tr><th>Назва гри</th><th>Час</th></tr>
-            </thead>
-            <tbody id="resultTable"></tbody>
-        </table>
-    </div>
+<div id="screen3">
+  <h2>Результати</h2>
+  <table id="resultsTable">
+    <thead>
+      <tr>
+        <th>Спроба</th>
+        <th>Час</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <button id="backToStart">Повернутись на початок</button>
+</div>
 
-    <script src="script.js"></script>
+<div id="errorDialog" title="Помилка" style="display: none;">
+  Не вірна цифра
+</div>
+
+<div id="winDialog" title="Вітаємо" style="display: none;">
+  Вітаю, ви виграли!
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
