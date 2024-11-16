@@ -5,60 +5,62 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-}
-
-#screen1, #screen2, #screen3 {
+    background-color: #f0f0f0;
+  }
+  
+  #screen1, #screen2, #screen3 {
+    display: none;
     text-align: center;
-}
-
-button {
-    background-color: #4CAF50;
-    color: white;
+    width: 100%;
+  }
+  
+  #startBtn, #restartBtn, #backToStart {
     padding: 10px 20px;
-    margin: 10px;
-    border: none;
-    border-radius: 5px;
+    font-size: 16px;
     cursor: pointer;
-}
-
-.grid {
+    margin: 20px 0;
+  }
+  
+  #grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(5, 80px);
     gap: 5px;
-    margin-top: 20px;
-}
-
-.cell {
-    width: 50px;
-    height: 50px;
+    justify-content: center;
+    margin: 20px auto;
+  }
+  
+  .cell {
+    width: 80px;
+    height: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #ccc;
-    cursor: pointer;
+    font-size: 20px;
     font-weight: bold;
-}
-
-.correct {
-    background-color: #8bc34a;
-    color: white;
-}
-
-table {
-    width: 50%;
-    margin: 0 auto;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .cell.variant-1 { background-color: #FFAAAA; color: rgb(192, 55, 55); }
+  .cell.variant-2 { background-color: #AAFFAA; color: rgb(96, 184, 84); }
+  .cell.variant-3 { background-color: #AAAAFF; color: rgb(165, 139, 159); }
+  .cell.variant-4 { background-color: #FFD700; color: rgb(117, 141, 60); }
+  .cell.variant-5 { background-color: #8A2BE2; color: rgb(187, 69, 202); }
+  
+  #resultsTable {
+    margin: 20px auto;
     border-collapse: collapse;
-}
-
-table, th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-tr:nth-child(odd) {
-    background-color: #e6e6e6;
-}
+  }
+  
+  #resultsTable th, #resultsTable td {
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    text-align: center;
+  }
+  
+  .highlight {
+    background-color: #FFD700;
+    font-weight: bold;
+  }
+  
