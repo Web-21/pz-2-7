@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Моя перша гра</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="game.css">
+</head>
+<body>
+<div id="screen1" class="screen">
+    <h1>Моя перша гра</h1>
+    <button id="startGame">Почати гру</button>
+</div>
+<div id="screen2" class="screen">
+    <div class="timer">Залишилось: <span id="timeLeft">60</span> с</div>
+    <div id="gameGrid" class="grid"></div>
+    <button id="restartGame">Почати з початку</button>
+</div>
+<div id="screen3" class="screen">
+    <h2>Результати</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Назва гри</th>
+                <th>Час</th>
+            </tr>
+        </thead>
+        <tbody id="resultsTable"></tbody>
+    </table>
+    <button id="playAgain">Почати знову</button>
+</div>
+<div id="dialog" title="Повідомлення" style="display:none;"> </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
