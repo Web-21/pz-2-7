@@ -1,0 +1,154 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+}
+
+h1, h2 {
+    color: #333;
+    margin: 20px 0;
+}
+
+button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#screen1, #screen2, #screen3 {
+    display: none;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 600px;
+}
+
+#grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+    margin: 20px auto;
+    width: 290px;
+}
+
+.iav-cell {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.iav-cell:hover {
+    background-color: #e6f7ff;
+    transform: scale(1.1);
+}
+
+.iav-cell.correct {
+    background-color: lightgreen;
+    pointer-events: none;
+}
+
+.iav-cell.incorrect {
+    background-color: lightcoral;
+}
+
+#timer {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ff0000;
+    margin-top: 10px;
+}
+
+table {
+    margin: 20px auto;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+th {
+    background-color: #007BFF;
+    color: white;
+    text-transform: uppercase;
+}
+
+tr.highlight {
+    background-color: yellow;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+.ui-dialog {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    text-align: center;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px;
+}
+
+.ui-dialog .ui-dialog-content {
+    padding: 20px;
+    color: #333;
+}
+
+.ui-dialog .ui-dialog-buttonpane {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+}
+
+.ui-dialog .ui-dialog-buttonpane button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.ui-dialog .ui-dialog-buttonpane button:hover {
+    background-color: #0056b3;
+}
