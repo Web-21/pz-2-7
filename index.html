@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Моя гра</title>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <title>Моя перша гра</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="./main.css">
 </head>
 <body>
     <div id="screen1">
@@ -15,21 +13,29 @@
         <button id="startGame">Почати гру</button>
     </div>
 
-    <div id="screen2" style="display: none;">
-        <h2>Залишилось: <span id="timer">30</span> секунд</h2>
+    <div id="screen2">
+        <h2>Залишилось: <span id="timer">30</span> с</h2>
+        <div id="grid"></div>
         <button id="restartGame">Почати з початку</button>
-        <div id="gameField" class="grid"></div>
     </div>
 
-    <div id="screen3" style="display: none;">
+    <div id="screen3">
+        <h2>Результати</h2>
         <table>
             <thead>
-                <tr><th>Назва гри</th><th>Час</th></tr>
+                <tr>
+                    <th>Назва гри</th>
+                    <th>Час</th>
+                </tr>
             </thead>
-            <tbody id="resultTable"></tbody>
+            <tbody id="results"></tbody>
         </table>
     </div>
 
-    <script src="script.js"></script>
+    <div id="dialog"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <script src="./script.js"></script>
 </body>
 </html>
