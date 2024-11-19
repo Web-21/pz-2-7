@@ -1,92 +1,97 @@
-$(document).ready(function() {
-    let sequence = [...Array(25).keys()].map(x => x + 1);
-    let timer;
-    let timeLeft = 30;
-    let currentSequence = 1;
+$(document).ready(function () {
+    let numbers = Array.from({ length: 25 }, (_, i) => i + 1);
+    let countdownTimer;
+    let remainingTime = 30;
+    let currentNumber = 1;
 
-    function shuffle(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
+    function shuffleArray(array) {
+        return array.sort(() => Math.random() - 0.5);
     }
 
-    function startTimer() {
-        timer = setInterval(() => {
-            timeLeft--;
-            $('#timer').text(timeLeft);
-            if (timeLeft <= 0) {
-                clearInterval(timer);
-                alert("Час вийшов!");
-                resetGame();
+    function startCountdown() {
+        $('#countdown').text(remainingTime);
+        countdownTimer = setInterval(() => {
+            remainingTime--;
+            $('#countdown').text(remainingTime);
+            if (remainingTime <= 0) {
+                clearInterval(countdownTimer);
+                alert("Час вийшов! Спробуйте ще раз.");
+                restartGame();
             }
         }, 1000);
     }
 
-    function resetGame() {
-        $('#screen2').hide();
-        $('#screen1').show();
-        clearInterval(timer);
-        timeLeft = 30;
-        currentSequence = 1;
-        $('#gameField').empty();
+    function restartGame() {
+        $('#gameScreen').hide();
+        $('#welcomeScreen').show();
+        clearInterval(countdownTimer);
+        remainingTime = 30;
+        currentNumber = 1;
+        $('#playField').empty();
     }
 
-    function setupGameField() {
-        $('#gameField').empty();
-        shuffle(sequence).forEach(num => {
-            const cell = $('<div></div>').addClass('cell').text(num);
-            cell.css({
-                "font-size": `${Math.floor(Math.random() * 10) + 15}px`,
-                "color": `hsl(${Math.random() * 360}, 100%, 50%)`
-            });
-            cell.click(function() {
-                if (parseInt($(this).text()) === currentSequence) {
-                    $(this).addClass('correct');
-                    currentSequence++;
-                    if (currentSequence > 10) {
-                        clearInterval(timer);
-                        $("<div>Вітаю ви виграли!</div>").dialog();
-                        saveResult(30 - timeLeft);
-                        $('#screen2').hide();
-                        $('#screen3').show();
-                        displayResults();
+    function createGameField() {
+        $('#playField').empty();
+        shuffleArray(numbers).forEach(num => {
+            const cell = $('<div></div>')
+                .addClass('grid-item')
+                .text(num)
+                .css({
+                    "font-size": `${Math.random() * 10 + 15}px`,
+                    "color": `hsl(${Math.random() * 360}, 100%, 50%)`
+                })
+                .click(function () {
+                    const clickedNumber = parseInt($(this).text());
+                    if (clickedNumber === currentNumber) {
+                        $(this).addClass('correct');
+                        currentNumber++;
+                        if (currentNumber > 10) {
+                            clearInterval(countdownTimer);
+                            alert(`Вітаємо! Ви виграли за ${30 - remainingTime} секунд.`);
+                            saveGameResult(30 - remainingTime);
+                            $('#gameScreen').hide();
+                            $('#resultScreen').show();
+                            showGameResults();
+                        }
+                    } else {
+                        clearInterval(countdownTimer);
+                        alert("Невірна цифра! Гра завершена.");
+                        restartGame();
                     }
-                } else {
-                    clearInterval(timer);
-                    $("<div>Не вірна цифра</div>").dialog();
-                    resetGame();
-                }
-            });
-            $('#gameField').append(cell);
+                });
+            $('#playField').append(cell);
         });
     }
 
-    function saveResult(time) {
-        let results = JSON.parse(localStorage.getItem('results')) || [];
-        results.push({ game: `Гра ${results.length + 1}`, time });
-        results.sort((a, b) => a.time - b.time);
-        localStorage.setItem('results', JSON.stringify(results));
+    function saveGameResult(time) {
+        let gameResults = JSON.parse(localStorage.getItem('gameResults')) || [];
+        gameResults.push({ game: `Гра ${gameResults.length + 1}`, time });
+        gameResults.sort((a, b) => a.time - b.time);
+        localStorage.setItem('gameResults', JSON.stringify(gameResults));
     }
 
-    function displayResults() {
-        $('#resultTable').empty();
-        let results = JSON.parse(localStorage.getItem('results')) || [];
-        results.forEach((result, index) => {
-            const row = `<tr${index === 0 ? ' style="background-color: #ffd700;"' : ''}><td>${result.game}</td><td>${result.time} с.</td></tr>`;
-            $('#resultTable').append(row);
+    function showGameResults() {
+        $('#resultsTable').empty();
+        const gameResults = JSON.parse(localStorage.getItem('gameResults')) || [];
+        gameResults.forEach((result, index) => {
+            $('#resultsTable').append(
+                `<tr${index === 0 ? ' style="background-color: #ffd700;"' : ''}>
+                    <td>${result.game}</td>
+                    <td>${result.time} с.</td>
+                </tr>`
+            );
         });
     }
 
-    $('#startGame').click(function() {
-        $('#screen1').hide();
-        $('#screen2').show();
-        setupGameField();
-        startTimer();
+    // Обробка подій кнопок
+    $('#startButton').click(() => {
+        $('#welcomeScreen').hide();
+        $('#gameScreen').show();
+        createGameField();
+        startCountdown();
     });
 
-    $('#restartGame').click(resetGame);
+    $('#restartButton').click(restartGame);
 
-    $('#screen3').hide().on('show', displayResults);
+    $('#resultScreen').hide().on('show', showGameResults);
 });
