@@ -1,92 +1,100 @@
-$(document).ready(function() {
-    let sequence = [...Array(25).keys()].map(x => x + 1);
-    let timer;
-    let timeLeft = 30;
-    let currentSequence = 1;
+$(document).ready(function () {
+    let timer = 60; 
+    let interval;
+    let sequence = Array.from({ length: 10 }, (_, i) => i + 1);
+    let currentIndex = 0;
+    let results = [];
+    
+    const colors = ['red', 'blue', 'green', 'orange', 'purple'];
 
-    function shuffle(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
+    function showScreen(screenId) {
+        $('.screen').removeClass('active');
+        $(`#${screenId}`).addClass('active');
     }
 
-    function startTimer() {
-        timer = setInterval(() => {
-            timeLeft--;
-            $('#timer').text(timeLeft);
-            if (timeLeft <= 0) {
-                clearInterval(timer);
-                alert("Час вийшов!");
-                resetGame();
+    function startGame() {
+        currentIndex = 0;
+        timer = 60; 
+        $('#timer').text(timer);
+        $('#gameField').empty();
+        const numbers = Array.from({ length: 15 }, (_, i) => i + 1).sort(() => Math.random() - 0.5);
+      
+        numbers.forEach(num => {
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            $('#gameField').append(
+                `<div class="cell" style="color: ${randomColor}">${num}</div>`
+            );
+        });
+
+        interval = setInterval(() => {
+            timer--;
+            $('#timer').text(timer);
+            if (timer <= 0) {
+                clearInterval(interval);
+                endGame("Час вийшов! Гра закінчена.");
             }
         }, 1000);
     }
 
-    function resetGame() {
-        $('#screen2').hide();
-        $('#screen1').show();
-        clearInterval(timer);
-        timeLeft = 30;
-        currentSequence = 1;
-        $('#gameField').empty();
-    }
-
-    function setupGameField() {
-        $('#gameField').empty();
-        shuffle(sequence).forEach(num => {
-            const cell = $('<div></div>').addClass('cell').text(num);
-            cell.css({
-                "font-size": `${Math.floor(Math.random() * 10) + 15}px`,
-                "color": `hsl(${Math.random() * 360}, 100%, 50%)`
-            });
-            cell.click(function() {
-                if (parseInt($(this).text()) === currentSequence) {
-                    $(this).addClass('correct');
-                    currentSequence++;
-                    if (currentSequence > 10) {
-                        clearInterval(timer);
-                        $("<div>Вітаю ви виграли!</div>").dialog();
-                        saveResult(30 - timeLeft);
-                        $('#screen2').hide();
-                        $('#screen3').show();
-                        displayResults();
+    function endGame(message) {
+        clearInterval(interval);
+        $('#popup').text(message).dialog({
+            modal: true,
+            buttons: {
+                OK: function () {
+                    $(this).dialog("close");
+                    if (message === "Вітаю ви виграли") {
+                        results.push(60 - timer); 
+                        updateResults();
+                        showScreen('screen3');
+                    } else {
+                        showScreen('screen1');
                     }
-                } else {
-                    clearInterval(timer);
-                    $("<div>Не вірна цифра</div>").dialog();
-                    resetGame();
                 }
-            });
-            $('#gameField').append(cell);
+            }
         });
     }
 
-    function saveResult(time) {
-        let results = JSON.parse(localStorage.getItem('results')) || [];
-        results.push({ game: `Гра ${results.length + 1}`, time });
-        results.sort((a, b) => a.time - b.time);
-        localStorage.setItem('results', JSON.stringify(results));
-    }
+    function updateResults() {
+        const tbody = $('#resultsTable tbody');
+        tbody.empty();
 
-    function displayResults() {
-        $('#resultTable').empty();
-        let results = JSON.parse(localStorage.getItem('results')) || [];
-        results.forEach((result, index) => {
-            const row = `<tr${index === 0 ? ' style="background-color: #ffd700;"' : ''}><td>${result.game}</td><td>${result.time} с.</td></tr>`;
-            $('#resultTable').append(row);
+        const minTime = Math.min(...results);
+
+        results.forEach((time, index) => {
+            const rowClass = time === minTime ? 'highlighted' : '';
+            tbody.append(`
+                <tr class="${rowClass}">
+                    <td>${index + 1}</td>
+                    <td>${time} сек</td>
+                </tr>
+            `);
         });
     }
 
-    $('#startGame').click(function() {
-        $('#screen1').hide();
-        $('#screen2').show();
-        setupGameField();
-        startTimer();
+    $('#startButton').on('click', () => {
+        showScreen('screen2');
+        startGame();
     });
 
-    $('#restartGame').click(resetGame);
+    $('#restartButton').on('click', startGame);
 
-    $('#screen3').hide().on('show', displayResults);
+    $('#gameField').on('click', '.cell', function () {
+        const number = parseInt($(this).text());
+        if (number === sequence[currentIndex]) {
+            $(this).addClass('correct');
+            currentIndex++;
+            if (currentIndex === sequence.length) {
+                endGame("Вітаю ви виграли");
+            }
+        } else {
+            endGame("Не вірна цифра");
+        }
+    });
+
+    $('#backToStart').on('click', () => {
+        showScreen('screen1');
+    });
+
+    showScreen('screen1');
 });

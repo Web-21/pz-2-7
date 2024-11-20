@@ -1,35 +1,46 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Моя гра</title>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Number Game</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body>
-    <div id="screen1">
-        <h1>Моя перша гра</h1>
-        <button id="startGame">Почати гру</button>
-    </div>
+  <div id="screen1" class="screen">
+    <h1>Моя перша гра</h1>
+    <button id="startButton" class="btn">Почати гру</button>
+  </div>
 
-    <div id="screen2" style="display: none;">
-        <h2>Залишилось: <span id="timer">30</span> секунд</h2>
-        <button id="restartGame">Почати з початку</button>
-        <div id="gameField" class="grid"></div>
+  
+  <div id="screen2" class="screen hidden">
+    <div class="header">
+      <p>Час: <span id="timer">0</span> сек</p>
+      <button id="restartButton" class="btn">Почати заново</button>
     </div>
+    <div id="gameField"></div>
+  </div>
 
-    <div id="screen3" style="display: none;">
-        <table>
-            <thead>
-                <tr><th>Назва гри</th><th>Час</th></tr>
-            </thead>
-            <tbody id="resultTable"></tbody>
-        </table>
-    </div>
 
-    <script src="script.js"></script>
+  <div id="screen3" class="screen hidden">
+    <h2>Результати</h2>
+    <table id="resultsTable" class="results-table">
+      <thead>
+        <tr>
+          <th>Спроба</th>
+          <th>Час</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <button id="backToStart" class="btn">На головну</button>
+  </div>
+
+  <div id="popup" title="Повідомлення"></div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
