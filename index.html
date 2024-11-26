@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pz_2_7</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="./main.css">
+</head>
+<body>
+    <div id="first-screen">
+        <h1 class="title">Моя перша гра</h1>
+        <button id="start-button">Почати гру</button>
+    </div>
+
+    <div id="second-screen">
+        <div id="timer">Timer: 0s</div>
+        <div id="cell-grid"></div>
+        <button id="restart-button">Почати спочатку</button>
+    </div>
+
+    <div id="third-screen">
+        <h1>Результати</h1>
+        <table id="results-table">
+            <thead>
+                <tr>
+                    <th>Назва гри</th>
+                    <th>Час</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <button id="restart-game">Почати спочатку</button>
+    </div>
+
+    <div id="error-dialog" title="Error">
+        <p>Не вірна цифра</p>
+    </div>
+
+    <div id="success-dialog" title="Congratulations">
+        <p>Вітаю ви виграли</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <script src="./index.js"></script>
+</body>
+</html>

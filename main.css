@@ -1,0 +1,72 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.title {
+    color: rgb(208, 105, 36);
+}
+
+#start-button,
+#restart-button,
+#restart-game {
+    background-color: rgb(85, 85, 244);
+    color: white;
+
+    height: 40px;
+    border-radius: 10px;
+}
+
+#restart-button,
+#restart-game {
+    margin-top: 30px;
+    width: 140px;
+}
+
+#first-screen,
+#second-screen,
+#third-screen {
+    display: none;
+    text-align: center;
+}
+
+#cell-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 50px);
+    grid-gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+#results-table {
+    margin: 20px auto;
+    border-collapse: collapse;
+    width: 60%;
+}
+
+#results-table th,
+#results-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+#results-table tr.best-result {
+    background-color: #d4edda;
+}
+
+#error-dialog,
+#success-dialog {
+    display: none;
+}
