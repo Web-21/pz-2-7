@@ -1,64 +1,149 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
+    background: #f9f9f9;
+    color: #333;
 }
 
-#screen1, #screen2, #screen3 {
-    text-align: center;
+h1, h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
 }
+
+a {
+    text-decoration: none;
+}
+
+.screen {
+    display: none;
+    text-align: center;
+    padding: 20px;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.screen.visible {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
 
 button {
-    background-color: #4CAF50;
-    color: white;
     padding: 10px 20px;
-    margin: 10px;
-    border: none;
-    border-radius: 5px;
+    font-size: 16px;
     cursor: pointer;
+    margin: 10px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    transition: all 0.2s ease;
 }
 
-.grid {
+button:hover {
+    background: #0056b3;
+}
+
+button:active {
+    background: #003f7f;
+}
+
+
+.timer {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+/* Ігрове поле */
+#game-board {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 5px;
-    margin-top: 20px;
+    gap: 8px;
+    max-width: 400px;
+    margin: 20px auto;
 }
 
-.cell {
-    width: 50px;
-    height: 50px;
+#game-board .cell {
+    width: 60px;
+    height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #ccc;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 3px;
     cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#game-board .cell:hover {
+    background-color: #0056b3;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+table th {
+    background: #f4f4f4;
+    font-size: 14px;
     font-weight: bold;
 }
 
-.correct {
-    background-color: #8bc34a;
-    color: white;
+table td {
+    font-size: 14px;
 }
 
-table {
-    width: 50%;
-    margin: 0 auto;
-    border-collapse: collapse;
+
+#not-cor, #suc-cor {
+    display: none;
 }
 
-table, th, td {
-    border: 1px solid #ddd;
+.ui-dialog-titlebar {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px 5px 0 0;
+}
+
+.ui-dialog-content {
+    font-size: 14px;
+    color: #333;
+}
+
+.ui-dialog-buttonpane button {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
     padding: 8px;
+    cursor: pointer;
 }
 
-tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-tr:nth-child(odd) {
-    background-color: #e6e6e6;
+.ui-dialog-buttonpane button:hover {
+    background: #0056b3;
 }
