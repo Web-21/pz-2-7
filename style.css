@@ -95,6 +95,12 @@ button:active {
     background-color: #0056b3;
 }
 
+/* NEW */
+#game-board .cell.clicked {
+    background-color: gray !important;
+    color: #fff;
+    pointer-events: none;
+}
 
 table {
     width: 100%;

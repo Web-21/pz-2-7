@@ -47,6 +47,8 @@ $(document).ready(function () {
     const resetGame = () => {
         clearInterval(timer);
         currentStep = 0;
+        // new
+        $('#game-board').empty();
         generateBoard();
         showScreen('screen-2');
         startTimer();
@@ -62,30 +64,35 @@ $(document).ready(function () {
                 'font-size': `${14 + Math.random() * 10}px`,
                 'background-color': `hsl(${Math.random() * 360}, 70%, 50%)`,
             });
-            cell.on('click', () => handleCellClick(num));
+            cell.on('click', function () {
+                handleCellClick($(this), num);
+            });
             $('#game-board').append(cell);
         });
     };
 
-    const handleCellClick = (number) => {
+    const handleCellClick = (cell, number) => {
+        console.log('Cell clicked:', cell, 'Number:', number);
         if (number === sequence[currentStep]) {
+            console.log('Correct cell!');
+            // new
+            cell.addClass('clicked');
             currentStep++;
             if (currentStep === sequence.length) {
                 clearInterval(timer);
                 const score = timeLeft;
-                games.push({
-                    id: gameId++,
-                    score: score,
-                });
+                games.push({ id: gameId++, score });
                 saveResultsToLocalStorage();
                 updateResultsTable();
                 showSucCor();
             }
         } else {
+            console.log('Incorrect cell!');
             showNotCor();
             resetGame();
         }
     };
+    
     
     const updateResultsTable = () => {
         const tbody = $('#results-table tbody');
@@ -130,6 +137,8 @@ $(document).ready(function () {
             }
         });
     }
+
+    
 
     function showSucCor() {
         $("#suc-cor").dialog({
