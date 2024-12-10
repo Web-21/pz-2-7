@@ -1,92 +1,154 @@
-$(document).ready(function() {
-    let sequence = [...Array(25).keys()].map(x => x + 1);
-    let timer;
+$(document).ready(function () {
+    let games = [];
+    let sequence = Array.from({ length: 10 }, (_, i) => i + 1);
+    let currentStep = 0;
     let timeLeft = 30;
-    let currentSequence = 1;
+    let gameId = 1; 
 
-    function shuffle(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
+    const showScreen = (screenId) => {
+        $('.screen').removeClass('visible');
+        $(`#${screenId}`).addClass('visible');
+    };
+
+    const saveResultsToLocalStorage = () => {
+        localStorage.setItem('games', JSON.stringify(games));
+    };    
+
+    const loadResultsFromLocalStorage = () => {
+        const savedGames = localStorage.getItem('games');
+        if (savedGames) {
+            games = JSON.parse(savedGames);
+            gameId = games.length > 0 ? games[games.length - 1].id + 1 : 1;
+            updateResultsTable();
         }
-        return array;
-    }
+    };    
 
-    function startTimer() {
+    const startTimer = () => {
+        timeLeft = 30;
+        $('#timer').text(timeLeft);
         timer = setInterval(() => {
             timeLeft--;
             $('#timer').text(timeLeft);
             if (timeLeft <= 0) {
                 clearInterval(timer);
-                alert("Час вийшов!");
-                resetGame();
+                $("#not-cor").dialog({
+                    modal: true,
+                    buttons: {
+                        OK: function () {
+                            $(this).dialog("close");
+                            resetGame();
+                        }
+                    }
+                });
             }
         }, 1000);
-    }
-
-    function resetGame() {
-        $('#screen2').hide();
-        $('#screen1').show();
+    };
+    
+    const resetGame = () => {
         clearInterval(timer);
-        timeLeft = 30;
-        currentSequence = 1;
-        $('#gameField').empty();
-    }
-
-    function setupGameField() {
-        $('#gameField').empty();
-        shuffle(sequence).forEach(num => {
-            const cell = $('<div></div>').addClass('cell').text(num);
-            cell.css({
-                "font-size": `${Math.floor(Math.random() * 10) + 15}px`,
-                "color": `hsl(${Math.random() * 360}, 100%, 50%)`
-            });
-            cell.click(function() {
-                if (parseInt($(this).text()) === currentSequence) {
-                    $(this).addClass('correct');
-                    currentSequence++;
-                    if (currentSequence > 10) {
-                        clearInterval(timer);
-                        $("<div>Вітаю ви виграли!</div>").dialog();
-                        saveResult(30 - timeLeft);
-                        $('#screen2').hide();
-                        $('#screen3').show();
-                        displayResults();
-                    }
-                } else {
-                    clearInterval(timer);
-                    $("<div>Не вірна цифра</div>").dialog();
-                    resetGame();
-                }
-            });
-            $('#gameField').append(cell);
-        });
-    }
-
-    function saveResult(time) {
-        let results = JSON.parse(localStorage.getItem('results')) || [];
-        results.push({ game: `Гра ${results.length + 1}`, time });
-        results.sort((a, b) => a.time - b.time);
-        localStorage.setItem('results', JSON.stringify(results));
-    }
-
-    function displayResults() {
-        $('#resultTable').empty();
-        let results = JSON.parse(localStorage.getItem('results')) || [];
-        results.forEach((result, index) => {
-            const row = `<tr${index === 0 ? ' style="background-color: #ffd700;"' : ''}><td>${result.game}</td><td>${result.time} с.</td></tr>`;
-            $('#resultTable').append(row);
-        });
-    }
-
-    $('#startGame').click(function() {
-        $('#screen1').hide();
-        $('#screen2').show();
-        setupGameField();
+        currentStep = 0;
+        // new
+        $('#game-board').empty();
+        generateBoard();
+        showScreen('screen-2');
         startTimer();
+    };
+
+    const generateBoard = () => {
+        const numbers = Array.from({ length: 25 }, (_, i) => i + 1)
+            .sort(() => Math.random() - 0.5);
+        $('#game-board').empty();
+        numbers.forEach((num) => {
+            const cell = $(`<div class="cell">${num}</div>`);
+            cell.css({
+                'font-size': `${14 + Math.random() * 10}px`,
+                'background-color': `hsl(${Math.random() * 360}, 70%, 50%)`,
+            });
+            cell.on('click', function () {
+                handleCellClick($(this), num);
+            });
+            $('#game-board').append(cell);
+        });
+    };
+
+    const handleCellClick = (cell, number) => {
+        console.log('Cell clicked:', cell, 'Number:', number);
+        if (number === sequence[currentStep]) {
+            console.log('Correct cell!');
+            // new
+            cell.addClass('clicked');
+            currentStep++;
+            if (currentStep === sequence.length) {
+                clearInterval(timer);
+                const score = timeLeft;
+                games.push({ id: gameId++, score });
+                saveResultsToLocalStorage();
+                updateResultsTable();
+                showSucCor();
+            }
+        } else {
+            console.log('Incorrect cell!');
+            showNotCor();
+            resetGame();
+        }
+    };
+    
+    
+    const updateResultsTable = () => {
+        const tbody = $('#results-table tbody');
+        tbody.empty();
+        games.forEach((game) => {
+            const row = $(`<tr>
+                <td>${game.id}</td>
+                <td>${game.score}</td>
+            </tr>`);
+            tbody.append(row);
+        });
+    };
+    
+    const showResults = () => {
+        const tbody = $('#results-table tbody');
+        tbody.empty();
+        results.forEach((score, index) => {
+            const row = $(`<tr><td>${index + 1}</td><td>${score}</td></tr>`);
+            if (index === 0) {
+                row.css('font-weight', 'bold');
+            }
+            tbody.append(row);
+        });
+        showScreen('screen-3');
+    };
+
+    $(document).ready(() => {
+        loadResultsFromLocalStorage();
+        showScreen('screen-1');
+        $('#start-button').on('click', () => { resetGame(); });
+    
+        $('#restart-button').on('click', () => { resetGame(); });
     });
+    
+    showScreen('screen-1');
 
-    $('#restartGame').click(resetGame);
+    function showNotCor() {
+        $("#not-cor").dialog({
+            modal: true,
+            buttons: {
+                OK: function () { $(this).dialog("close"); }
+            }
+        });
+    }
 
-    $('#screen3').hide().on('show', displayResults);
+    
+
+    function showSucCor() {
+        $("#suc-cor").dialog({
+            modal: true,
+            buttons: {
+                OK: function () {
+                    $(this).dialog("close");
+                    showScreen('screen-3');
+                }
+            }
+        });
+    }
 });
