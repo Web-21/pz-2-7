@@ -32,7 +32,7 @@ $(document).ready(function () {
     function handleNumberClick(num) {
         if (num === correctSequence) {
             correctSequence++;
-            if (correctSequence > 10) {
+            if (correctSequence > 5) {
                 clearInterval(timer);
                 gameOver(true);
             }
