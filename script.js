@@ -45,7 +45,7 @@ $(document).ready(function() {
                 if (parseInt($(this).text()) === currentSequence) {
                     $(this).addClass('correct');
                     currentSequence++;
-                    if (currentSequence > 10) {
+                    if (currentSequence > 7) {
                         clearInterval(timer);
                         $("<div>Вітаю ви виграли!</div>").dialog();
                         saveResult(30 - timeLeft);
