@@ -38,14 +38,14 @@ $(document).ready(function() {
         shuffle(sequence).forEach(num => {
             const cell = $('<div></div>').addClass('cell').text(num);
             cell.css({
-                "font-size": `${Math.floor(Math.random() * 10) + 15}px`,
+                "font-size": `${Math.floor(Math.random() * 7) + 15}px`,
                 "color": `hsl(${Math.random() * 360}, 100%, 50%)`
             });
             cell.click(function() {
                 if (parseInt($(this).text()) === currentSequence) {
                     $(this).addClass('correct');
                     currentSequence++;
-                    if (currentSequence > 10) {
+                    if (currentSequence > 7) {
                         clearInterval(timer);
                         $("<div>Вітаю ви виграли!</div>").dialog();
                         saveResult(30 - timeLeft);
