@@ -10,24 +10,37 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Екран 1 -->
     <div id="screen1">
         <h1>Моя перша гра</h1>
         <button id="startGame">Почати гру</button>
     </div>
 
+    <!-- Екран 2 -->
     <div id="screen2" style="display: none;">
         <h2>Залишилось: <span id="timer">30</span> секунд</h2>
         <button id="restartGame">Почати з початку</button>
         <div id="gameField" class="grid"></div>
     </div>
 
+    <!-- Екран 3 -->
     <div id="screen3" style="display: none;">
+        <h2>Результати</h2>
         <table>
             <thead>
                 <tr><th>Назва гри</th><th>Час</th></tr>
             </thead>
             <tbody id="resultTable"></tbody>
         </table>
+    </div>
+    
+    <!-- Діалогові вікна -->
+    <div id="error-dialog" title="Помилка" style="display:none;">
+      <p>Не вірна цифра</p>
+    </div>
+
+    <div id="win-dialog" title="Перемога" style="display:none;">
+      <p>Вітаю ви виграли!</p>
     </div>
 
     <script src="script.js"></script>
