@@ -1,0 +1,34 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+#grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    max-width: 300px;
+    margin: 20px auto;
+}
+
+#grid button {
+    padding: 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#results-table {
+    margin: 0 auto;
+    border-collapse: collapse;
+    width: 50%;
+}
+
+#results-table th, #results-table td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+}
+
+#results-table tbody .highlight {
+    background-color: #ffeb3b;
+}
