@@ -68,7 +68,7 @@ $(document).ready(function() {
                 if (parseInt($(this).text()) === currentSequence) {
                     $(this).addClass('correct');
                     currentSequence++;
-                    if (currentSequence > 10) {
+                    if (currentSequence > 5) {
                         // Перемога
                         clearInterval(timer);
                         gameCount++;
