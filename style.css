@@ -12,7 +12,7 @@ body {
 }
 
 button {
-    background-color: #4CAF50;
+    background-color: #0ee215;
     color: white;
     padding: 10px 20px;
     margin: 10px;
@@ -40,7 +40,7 @@ button {
 }
 
 .correct {
-    background-color: #8bc34a;
+    background-color: #4e7027;
     color: white;
 }
 
