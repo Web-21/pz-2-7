@@ -12,19 +12,19 @@ $(document).ready(function() {
         return array;
     }
 
-    function startTimer() {
+    function initiateCountdown() {
         timer = setInterval(() => {
             timeLeft--;
             $('#timer').text(timeLeft);
             if (timeLeft <= 0) {
                 clearInterval(timer);
                 alert("Час вийшов!");
-                resetGame();
+                restartGameSession();
             }
         }, 1000);
     }
 
-    function resetGame() {
+    function restartGameSession() {
         $('#screen2').hide();
         $('#screen1').show();
         clearInterval(timer);
@@ -33,44 +33,44 @@ $(document).ready(function() {
         $('#gameField').empty();
     }
 
-    function setupGameField() {
+    function initializeGameField() {
         $('#gameField').empty();
         shuffle(sequence).forEach(num => {
-            const cell = $('<div></div>').addClass('cell').text(num);
-            cell.css({
+            const gameCell = $('<div></div>').addClass('game-cell').text(num);
+            gameCell.css({
                 "font-size": `${Math.floor(Math.random() * 10) + 15}px`,
                 "color": `hsl(${Math.random() * 360}, 100%, 50%)`
             });
-            cell.click(function() {
+            gameCell.click(function() {
                 if (parseInt($(this).text()) === currentSequence) {
-                    $(this).addClass('correct');
+                    $(this).addClass('selected-cell');
                     currentSequence++;
                     if (currentSequence > 10) {
                         clearInterval(timer);
-                        $("<div>Вітаю ви виграли!</div>").dialog();
-                        saveResult(30 - timeLeft);
+                        $("<div>Вітаю, ви виграли!</div>").dialog();
+                        recordGameResult(30 - timeLeft);
                         $('#screen2').hide();
                         $('#screen3').show();
-                        displayResults();
+                        showResults();
                     }
                 } else {
                     clearInterval(timer);
-                    $("<div>Не вірна цифра</div>").dialog();
-                    resetGame();
+                    $("<div>Невірна цифра!</div>").dialog();
+                    restartGameSession();
                 }
             });
-            $('#gameField').append(cell);
+            $('#gameField').append(gameCell);
         });
     }
 
-    function saveResult(time) {
+    function recordGameResult(time) {
         let results = JSON.parse(localStorage.getItem('results')) || [];
         results.push({ game: `Гра ${results.length + 1}`, time });
         results.sort((a, b) => a.time - b.time);
         localStorage.setItem('results', JSON.stringify(results));
     }
 
-    function displayResults() {
+    function showResults() {
         $('#resultTable').empty();
         let results = JSON.parse(localStorage.getItem('results')) || [];
         results.forEach((result, index) => {
@@ -82,11 +82,11 @@ $(document).ready(function() {
     $('#startGame').click(function() {
         $('#screen1').hide();
         $('#screen2').show();
-        setupGameField();
-        startTimer();
+        initializeGameField();
+        initiateCountdown();
     });
 
-    $('#restartGame').click(resetGame);
+    $('#restartGame').click(restartGameSession);
 
-    $('#screen3').hide().on('show', displayResults);
+    $('#screen3').hide().on('show', showResults);
 });
