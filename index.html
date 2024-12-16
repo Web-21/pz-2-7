@@ -3,30 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Моя гра</title>
+    <title>Гра Числа</title>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="screen1">
-        <h1>Моя перша гра</h1>
-        <button id="startGame">Почати гру</button>
+    <div id="startScreen">
+        <h1>Моя нова гра</h1>
+        <button id="playButton">Розпочати</button>
     </div>
 
-    <div id="screen2" style="display: none;">
-        <h2>Залишилось: <span id="timer">30</span> секунд</h2>
-        <button id="restartGame">Почати з початку</button>
-        <div id="gameField" class="grid"></div>
+    <div id="mainGame" style="display: none;">
+        <h2>Залишилось: <span id="timerDisplay">30</span> секунд</h2>
+        <button id="resetButton">Перезапустити</button>
+        <div id="gridArea" class="field-grid"></div>
     </div>
 
-    <div id="screen3" style="display: none;">
+    <div id="scoreScreen" style="display: none;">
+        <h2>Ваші результати</h2>
         <table>
             <thead>
-                <tr><th>Назва гри</th><th>Час</th></tr>
+                <tr><th>Гра</th><th>Час</th></tr>
             </thead>
-            <tbody id="resultTable"></tbody>
+            <tbody id="scoreTable"></tbody>
         </table>
     </div>
 
