@@ -1,64 +1,113 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    height: 100vh;
+    justify-content: center;
+    min-height: 100vh;
     margin: 0;
+    background: #b0b0b0; /* Сірий фон сторінки */
+    color: #333;
 }
 
-#screen1, #screen2, #screen3 {
+#startScreen, #mainGame, #scoreScreen {
     text-align: center;
-}
-
-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    margin: 10px;
-    border: none;
+    padding: 20px;
+    background: #d0d0d0; /* Світліший сірий фон для контейнерів */
     border-radius: 5px;
-    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 400px;
 }
 
-.grid {
+.action-button {
+    background: #5a5a5a; /* Сірий фон кнопок */
+    color: #fff;
+    padding: 15px;
+    margin: 10px;
+    border: 2px solid #444;
+    border-radius: 0; /* Чіткі квадратні кути */
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    width: 100px;
+    height: 50px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.action-button:hover {
+    background: #707070;
+    transform: translateY(-2px);
+}
+
+.field-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 5px;
+    gap: 10px;
     margin-top: 20px;
 }
 
-.cell {
-    width: 50px;
-    height: 50px;
+.grid-cell {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #ccc;
-    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    font-size: 18px;
     font-weight: bold;
+    color: #fff;
+    background: #5a5a5a; /* Сірий фон для клітинок */
+    border: 2px solid #444;
+    border-radius: 0; /* Чіткі квадратні кути */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
-.correct {
-    background-color: #8bc34a;
-    color: white;
+.grid-cell.selected {
+    background: #34c759;
+    color: #fff;
+    border-color: #28a745;
+}
+
+.grid-cell:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
 }
 
 table {
-    width: 50%;
-    margin: 0 auto;
+    width: 100%;
+    margin: 20px auto;
     border-collapse: collapse;
+    background: #d0d0d0;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
-table, th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
+th, td {
+    padding: 12px;
+    border: 1px solid #999;
+    text-align: center;
+    font-size: 14px;
+}
+
+th {
+    background: #5a5a5a;
+    color: #fff;
+    font-weight: bold;
 }
 
 tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background: #c0c0c0;
 }
 
 tr:nth-child(odd) {
-    background-color: #e6e6e6;
+    background: #b0b0b0;
 }
+
+tr:hover {
+    background: #a0a0a0;
+}
+
